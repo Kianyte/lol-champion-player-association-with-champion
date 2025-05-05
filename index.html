@@ -230,7 +230,7 @@
       };
 
       const urlName = specialCases[name] || name;
-      return https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
     function loadChampion() {
@@ -276,7 +276,7 @@
         const img = document.createElement('img');
         img.src = getChampionImageUrl(champion);
         const text = document.createElement('span');
-        text.innerText = ${champion}: ${player};
+        text.innerText = `${champion}: ${player}`;
         d.appendChild(img);
         d.appendChild(text);
         list.appendChild(d);
