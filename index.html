@@ -26,7 +26,7 @@
       border: 4px solid #785A28;
       border-radius: 10px;
       padding: 60px;
-      max-width: 1200px; /* Increased the container width */
+      max-width: 1200px;
       text-align: center;
       box-shadow: 0 0 20px #000;
     }
@@ -36,14 +36,14 @@
     }
 
     h1 {
-      font-size: 40px; /* Increased font size for heading */
+      font-size: 40px;
       color: #F0E6D2;
       margin-bottom: 30px;
     }
 
     #champion-img {
-      width: 1080px; /* Increased image width */
-      height: 608px; /* Increased image height */
+      width: 1080px;
+      height: 608px;
       object-fit: cover;
       border: 4px solid #C8AA6E;
       border-radius: 6px;
@@ -51,9 +51,9 @@
     }
 
     input[type="text"] {
-      width: 500px; /* Increased input width */
-      padding: 16px 20px; /* Increased padding for better size */
-      font-size: 24px; /* Larger font size for input */
+      width: 500px;
+      padding: 16px 20px;
+      font-size: 24px;
       border-radius: 6px;
       border: 3px solid #C8AA6E;
       background-color: #1e1e1e;
@@ -61,8 +61,8 @@
     }
 
     button {
-      padding: 20px 40px; /* Increased padding for buttons */
-      font-size: 28px; /* Increased button font size */
+      padding: 20px 40px;
+      font-size: 28px;
       font-weight: bold;
       border-radius: 50px;
       margin: 20px;
@@ -93,7 +93,7 @@
 
     #credits {
       margin-top: 30px;
-      font-size: 24px; /* Larger font size for credits */
+      font-size: 24px;
       color: #7E633F;
     }
 
@@ -112,8 +112,8 @@
     }
 
     .summary-entry {
-      width: 30%; /* Adjusted width for 3 champions per row */
-      min-width: 300px; /* Set a minimum width for consistency */
+      width: 30%;
+      min-width: 300px;
       display: flex;
       align-items: center;
       gap: 15px;
@@ -122,19 +122,19 @@
       padding: 20px;
       border-radius: 8px;
       box-sizing: border-box;
-      font-size: 28px; /* Increased font size for summary text */
+      font-size: 28px;
     }
 
     .summary-entry img {
-      width: 80px; /* Increased image size */
+      width: 80px;
       height: 80px;
       object-fit: cover;
       border-radius: 6px;
     }
 
     .inner-button {
-      padding: 20px 40px; /* Increased button padding */
-      font-size: 28px; /* Increased font size for inner buttons */
+      padding: 20px 40px;
+      font-size: 28px;
       font-weight: bold;
       border-radius: 50px;
       margin: 20px;
@@ -203,7 +203,7 @@
     ];
 
     let currentIndex = 0;
-    const results = new Map(); // Use a Map to store unique champions
+    const results = new Map();
 
     function getChampionImageUrl(name) {
       if (name === "xdd") {
@@ -283,6 +283,13 @@
       });
       document.getElementById('summary').style.display = 'block';
     }
+
+    // Enable Enter key to act as submit when input is focused
+    document.getElementById('player-name').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        submitAnswer();
+      }
+    });
 
     loadChampion();
   </script>
