@@ -112,8 +112,8 @@
     }
 
     .summary-entry {
-      width: 40%; /* Increased width for summary entries */
-      min-width: 320px;
+      width: 30%; /* Adjusted width for 3 champions per row */
+      min-width: 300px; /* Set a minimum width for consistency */
       display: flex;
       align-items: center;
       gap: 15px;
@@ -122,6 +122,7 @@
       padding: 20px;
       border-radius: 8px;
       box-sizing: border-box;
+      font-size: 28px; /* Increased font size for summary text */
     }
 
     .summary-entry img {
@@ -271,20 +272,17 @@
       const list = document.getElementById('summary-list');
       results.forEach((player, champion) => {
         const d = document.createElement('div');
-        d.className = 'summary-entry';
-        d.innerHTML = `<img src="${getChampionImageUrl(champion)}" alt="${champion}"/><span>${champion} → ${player}</span>`;
+        d.classList.add('summary-entry');
+        const img = document.createElement('img');
+        img.src = getChampionImageUrl(champion);
+        const text = document.createElement('span');
+        text.innerText = `${champion}: ${player}`;
+        d.appendChild(img);
+        d.appendChild(text);
         list.appendChild(d);
       });
       document.getElementById('summary').style.display = 'block';
     }
-
-    // Add event listener for the "Enter" key to trigger the submitAnswer function
-    document.getElementById('player-name').addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        submitAnswer();
-      }
-    });
 
     loadChampion();
   </script>
