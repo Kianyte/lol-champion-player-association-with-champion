@@ -1,87 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Beaufort+for+LOL&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #1c1c1c;
-      color: white;
+      margin: 0;
+      padding: 0;
+      font-family: 'Beaufort for LOL', Arial, sans-serif;
+      background-image: url('https://i.postimg.cc/d1Cq70Gp/image.png');
+      background-size: cover;
+      background-position: center;
+      color: #C8AA6E;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
     }
-    #game {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+
+    .container {
+      background: rgba(15, 15, 15, 0.9);
+      border: 4px solid #785A28;
+      border-radius: 10px;
+      padding: 40px;
+      max-width: 1000px;
+      text-align: center;
+      box-shadow: 0 0 20px #000;
     }
-    #champion-img {
-      max-width: 400px;
-      height: auto;
+
+    .container.summary {
+      max-width: 1200px;
+      padding: 60px;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #F0E6D2;
       margin-bottom: 20px;
     }
-    #player-name {
-      background-color: #333;
-      color: white;
-      border: none;
-      padding: 10px;
-      margin-bottom: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      width: 250px;
+
+    #champion-img {
+      width: 920px;
+      height: 518px;
+      object-fit: cover;
+      border: 4px solid #C8AA6E;
+      border-radius: 6px;
+      margin-bottom: 20px;
     }
-    .btn {
-      background-color: #ffcc00;
-      color: #1c1c1c;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
-      font-size: 16px;
+
+    input[type="text"] {
+      width: 400px;
+      padding: 12px 16px;
+      font-size: 20px;
+      border-radius: 4px;
+      border: 2px solid #C8AA6E;
+      background-color: #1e1e1e;
+      color: #F0E6D2;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 50px;
+      margin: 10px;
+      background: linear-gradient(135deg, #A87645, #C89F69);
+      color: #F0E6D2;
+      border: 2px solid #6B4A29;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
       cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
     }
-    .btn:hover {
-      background-color: #e6b800;
+
+    button:hover {
+      background: linear-gradient(135deg, #C89F69, #A87645);
+      transform: scale(1.05);
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8);
     }
-    .summary-entry {
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
+
+    button:active {
+      background: #F0E6D2;
+      color: #6C542A;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
-    .summary-entry img {
-      max-width: 50px;
-      margin-right: 10px;
+
+    #nav-buttons {
+      margin-top: 20px;
     }
+
+    #credits {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #7E633F;
+    }
+
     #summary {
       display: none;
-      margin-top: 20px;
-      text-align: center;
     }
+
     #summary-list {
-      max-width: 500px;
-      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      max-height: 800px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .summary-entry {
+      width: 30%;
+      min-width: 240px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #1e1e1e;
+      border: 1px solid #785A28;
+      padding: 10px;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .summary-entry img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .inner-button {
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 50px;
+      margin: 10px;
+      background: linear-gradient(135deg, #A87645, #C89F69);
+      color: #F0E6D2;
+      border: 2px solid #6B4A29;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+
+    .inner-button:hover {
+      background: linear-gradient(135deg, #C89F69, #A87645);
+      transform: scale(1.05);
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.8);
+    }
+
+    .inner-button:active {
+      background: #F0E6D2;
+      color: #6C542A;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
 <body>
-  <div id="game">
-    <img id="champion-img" src="" alt="Champion Image">
-    <input type="text" id="player-name" placeholder="Enter pro player name" autocomplete="off">
-    <button class="btn" onclick="submitAnswer()">Submit</button>
-    <button class="btn" onclick="skipChampion()">Skip</button>
-    <button class="btn" onclick="goBack()">Go Back</button>
+  <div class="container" id="game">
+    <h1>Name the first pro player that comes to mind</h1>
+    <img id="champion-img" src="" alt="Champion" />
+    <div>
+      <input type="text" id="player-name" placeholder="Enter pro player name" />
+      <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <div id="nav-buttons">
+      <button class="inner-button" onclick="goBack()">Back</button>
+      <button class="inner-button" onclick="skipChampion()">Skip</button>
+    </div>
+    <div id="credits">Made by kyanitevrc (discord)</div>
   </div>
 
-  <div id="summary">
-    <h2>Summary</h2>
+  <div class="container summary" id="summary">
+    <h1>Summary</h1>
     <div id="summary-list"></div>
-    <button class="btn" onclick="window.location.reload()">Restart</button>
   </div>
 
   <script>
@@ -183,8 +279,8 @@
       document.getElementById('summary').style.display = 'block';
     }
 
-    // Add an event listener for the 'Enter' key press
-    document.getElementById('player-name').addEventListener('keydown', function (event) {
+    // Add event listener for the "Enter" key to trigger the submitAnswer function
+    document.getElementById('player-name').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
         event.preventDefault();
         submitAnswer();
