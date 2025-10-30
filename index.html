@@ -6,24 +6,160 @@
   <title>Champion Association Game</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Beaufort+for+LOL&display=swap');
-    body { margin:0; padding:0; font-family:'Beaufort for LOL', Arial, sans-serif; background-image:url('https://i.postimg.cc/d1Cq70Gp/image.png'); background-size:cover; background-position:center; color:#C8AA6E; display:flex; justify-content:center; align-items:center; min-height:100vh;}
-    .container {background: rgba(15, 15, 15, 0.9); border:4px solid #785A28; border-radius:10px; padding:60px; max-width:1200px; text-align:center; box-shadow:0 0 20px #000;}
-    .container.summary {padding:80px;}
-    h1 {font-size:40px; color:#F0E6D2; margin-bottom:30px;}
-    #champion-img {width:1080px; height:608px; object-fit:cover; border:4px solid #C8AA6E; border-radius:6px; margin-bottom:30px;}
-    input[type="text"] {width:500px; padding:16px 20px; font-size:24px; border-radius:6px; border:3px solid #C8AA6E; background-color:#1e1e1e; color:#F0E6D2;}
-    button {padding:20px 40px; font-size:28px; font-weight:bold; border-radius:50px; margin:20px; background:linear-gradient(135deg, #A87645, #C89F69); color:#F0E6D2; border:3px solid #6B4A29; box-shadow:4px 4px 15px rgba(0,0,0,0.7); cursor:pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; outline:none;}
-    button:hover {background:linear-gradient(135deg,#C89F69,#A87645); transform:scale(1.1); box-shadow:4px 4px 20px rgba(0,0,0,0.8);}
-    button:active {background:#F0E6D2; color:#6C542A; box-shadow:2px 2px 5px rgba(0,0,0,0.5);}
-    #nav-buttons {margin-top:30px;}
-    #credits {margin-top:30px; font-size:24px; color:#7E633F;}
-    #summary {display:none;}
-    #summary-list {display:flex; flex-wrap:wrap; gap:30px; justify-content:center; max-height:900px; overflow-y:auto; padding-right:20px;}
-    .summary-entry {width:30%; min-width:300px; display:flex; align-items:center; gap:15px; background-color:#1e1e1e; border:2px solid #785A28; padding:20px; border-radius:8px; box-sizing:border-box; font-size:28px;}
-    .summary-entry img {width:80px; height:80px; object-fit:cover; border-radius:6px;}
-    .inner-button {padding:20px 40px; font-size:28px; font-weight:bold; border-radius:50px; margin:20px; background:linear-gradient(135deg,#A87645,#C89F69); color:#F0E6D2; border:3px solid #6B4A29; box-shadow:4px 4px 15px rgba(0,0,0,0.7); cursor:pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; outline:none;}
-    .inner-button:hover {background:linear-gradient(135deg,#C89F69,#A87645); transform:scale(1.1); box-shadow:4px 4px 20px rgba(0,0,0,0.8);}
-    .inner-button:active {background:#F0E6D2; color:#6C542A; box-shadow:2px 2px 5px rgba(0,0,0,0.5);}
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Beaufort for LOL', Arial, sans-serif;
+      background-image: url('https://i.postimg.cc/d1Cq70Gp/image.png');
+      background-size: cover;
+      background-position: center;
+      color: #C8AA6E;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: rgba(15, 15, 15, 0.9);
+      border: 4px solid #785A28;
+      border-radius: 10px;
+      padding: 60px;
+      max-width: 1200px;
+      text-align: center;
+      box-shadow: 0 0 20px #000;
+    }
+
+    .container.summary {
+      padding: 80px;
+    }
+
+    h1 {
+      font-size: 40px;
+      color: #F0E6D2;
+      margin-bottom: 30px;
+    }
+
+    #champion-img {
+      width: 1080px;
+      height: 608px;
+      object-fit: cover;
+      border: 4px solid #C8AA6E;
+      border-radius: 6px;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      width: 500px;
+      padding: 16px 20px;
+      font-size: 24px;
+      border-radius: 6px;
+      border: 3px solid #C8AA6E;
+      background-color: #1e1e1e;
+      color: #F0E6D2;
+      text-transform: uppercase; /* Force uppercase in input */
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 28px;
+      font-weight: bold;
+      border-radius: 50px;
+      margin: 20px;
+      background: linear-gradient(135deg, #A87645, #C89F69);
+      color: #F0E6D2;
+      border: 3px solid #6B4A29;
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #C89F69, #A87645);
+      transform: scale(1.1);
+      box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    button:active {
+      background: #F0E6D2;
+      color: #6C542A;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    #nav-buttons {
+      margin-top: 30px;
+    }
+
+    #credits {
+      margin-top: 30px;
+      font-size: 24px;
+      color: #7E633F;
+    }
+
+    #summary {
+      display: none;
+    }
+
+    #summary-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      max-height: 900px;
+      overflow-y: auto;
+      padding-right: 20px;
+    }
+
+    .summary-entry {
+      width: 30%;
+      min-width: 300px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background-color: #1e1e1e;
+      border: 2px solid #785A28;
+      padding: 20px;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 28px;
+      flex-direction: column;
+    }
+
+    .summary-entry img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .inner-button {
+      padding: 20px 40px;
+      font-size: 28px;
+      font-weight: bold;
+      border-radius: 50px;
+      margin: 20px;
+      background: linear-gradient(135deg, #A87645, #C89F69);
+      color: #F0E6D2;
+      border: 3px solid #6B4A29;
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+    }
+
+    .inner-button:hover {
+      background: linear-gradient(135deg, #C89F69, #A87645);
+      transform: scale(1.1);
+      box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .inner-button:active {
+      background: #F0E6D2;
+      color: #6C542A;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -46,138 +182,125 @@
     <div id="summary-list"></div>
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  </script>
-
   <script>
     const champions = [
-      "Aatrox","Ahri","Akali","Akshan","Alistar","Amumu","Ambessa","Anivia","Annie","Aphelios",
-      "Ashe","AurelionSol","Azir","Bard","Belveth","Blitzcrank","Brand","Braum","Briar",
-      "Caitlyn","Camille","Cassiopeia","ChoGath","Corki","Darius","Diana","DrMundo","Draven",
-      "Ekko","Elise","Evelynn","Ezreal","Fiddlesticks","Fiora","Fizz","Galio","Gangplank","Garen",
-      "Gnar","Gragas","Graves","Gwen","Hecarim","Heimerdinger","Hwei","Illaoi","Irelia","Ivern",
-      "Janna","JarvanIV","Jax","Jayce","Jhin","Jinx","Kaisa","Kalista","Karma","Karthus","Kassadin",
-      "Katarina","Kayle","Kayn","Kennen","KhaZix","Kindred","Kled","KogMaw","KSante","LeBlanc",
-      "LeeSin","Leona","Lillia","Lissandra","Lucian","Lulu","Lux","Malphite","Malzahar","Maokai",
-      "MasterYi","Mel","Milio","MissFortune","Mordekaiser","Morgana","Naafiri","Nami","Nasus",
-      "Nautilus","Neeko","Nidalee","Nilah","Nocturne","Nunu","Olaf","Orianna","Ornn","Pantheon",
-      "Poppy","Pyke","Qiyana","Quinn","Rakan","Rammus","RekSai","Rell","Renata","Renekton","Rengar",
-      "Riven","Rumble","Ryze","Samira","Sejuani","Senna","Seraphine","Sett","Shaco","Shen","Shyvana",
-      "Singed","Sion","Sivir","Skarner","Sona","Soraka","Smolder","Swain","Sylas","Syndra","TahmKench",
-      "Taliyah","Talon","Taric","Teemo","Thresh","Tristana","Trundle","Tryndamere","TwistedFate",
-      "Twitch","Udyr","Urgot","Varus","Vayne","Veigar","Velkoz","Vex","Vi","Viego","Viktor","Vladimir",
-      "Volibear","Warwick","Wukong","Xayah","Xerath","XinZhao","Yasuo","Yone","Yorick","Yuumi",
-      "Yunara","Zac","Zed","Zeri","Ziggs","Zilean","Zoe","Zyra","xdd"
+      "Aatrox", "Ahri", "Akali", "Akshan", "Alistar", "Amumu", "Ambessa", "Anivia", "Annie", "Aphelios",
+      "Ashe", "AurelionSol", "Azir", "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar",
+      "Caitlyn", "Camille", "Cassiopeia", "ChoGath", "Corki", "Darius", "Diana", "DrMundo", "Draven",
+      "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen",
+      "Gnar", "Gragas", "Graves", "Gwen", "Hecarim", "Heimerdinger", "Hwei", "Illaoi", "Irelia", "Ivern",
+      "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin",
+      "Katarina", "Kayle", "Kayn", "Kennen", "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc",
+      "LeeSin", "Leona", "Lillia", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai",
+      "MasterYi", "Mel", "Milio", "MissFortune", "Mordekaiser", "Morgana", "Naafiri", "Nami", "Nasus",
+      "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon",
+      "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "RekSai", "Rell", "Renata", "Renekton", "Rengar",
+      "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana",
+      "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Smolder", "Swain", "Sylas", "Syndra", "TahmKench",
+      "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate",
+      "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir",
+      "Volibear", "Warwick", "Wukong", "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi",
+      "Yunara", "Zac", "Zed", "Zeri", "Ziggs", "Zilean", "Zoe", "Zyra", "xdd"
     ];
 
     let currentIndex = 0;
     const results = new Map();
+    const answerCounts = {}; // For most common answer calculation
 
-    function getChampionImageUrl(name){
-      if(name==="xdd") return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
+    function getChampionImageUrl(name) {
       const customImages = {
-        Kayle:"https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
-        Morgana:"https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-        Xayah:"https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-        Rakan:"https://i.postimg.cc/Jhq5Xttt/Rakan.webp",
-        Akshan:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akshan_0.jpg",
-        Hwei:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Hwei_0.jpg",
-        Aurora:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aurora_0.jpg",
-        Ambessa:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ambessa_0.jpg",
-        Mel:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Mel_0.jpg",
-        Smolder:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Smolder_0.jpg",
-        Yunara:"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yunara_0.jpg"
+        Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
+        Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
+        Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
+        Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp",
+        Akshan: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akshan_0.jpg",
+        Hwei: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Hwei_0.jpg",
+        Aurora: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aurora_0.jpg",
+        Ambessa: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ambessa_0.jpg",
+        Mel: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Mel_0.jpg",
+        Smolder: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Smolder_0.jpg",
+        Yunara: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yunara_0.jpg",
+        xdd: "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp"
       };
-      if(customImages[name]) return customImages[name];
-      const specialCases = {ChoGath:"Chogath",KhaZix:"Khazix",RekSai:"RekSai",Velkoz:"Velkoz",KSante:"KSante",LeBlanc:"Leblanc",Wukong:"MonkeyKing"};
-      const urlName = specialCases[name]||name;
-      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
+      const specialCases = {ChoGath: "Chogath", KhaZix: "Khazix", RekSai: "RekSai", Velkoz: "Velkoz", KSante: "KSante", LeBlanc: "Leblanc", Wukong: "MonkeyKing"};
+      return customImages[name] || `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${specialCases[name] || name}_0.jpg`;
     }
 
-    function loadChampion(){
-      if(currentIndex>=champions.length) return showSummary();
-      document.getElementById('champion-img').src=getChampionImageUrl(champions[currentIndex]);
-      document.getElementById('player-name').value='';
+    function loadChampion() {
+      if (currentIndex >= champions.length) return showSummary();
+      document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
+      document.getElementById('player-name').value = '';
       document.getElementById('player-name').focus();
     }
 
-    async function submitAnswer(){
-      const input=document.getElementById('player-name').value.trim().toUpperCase(); // Force uppercase
-      const champion=champions[currentIndex];
-      if(!results.has(champion)) results.set(champion,input||"(No answer)");
+    function submitAnswer() {
+      const input = document.getElementById('player-name').value.trim().toUpperCase() || "(No answer)";
+      const champion = champions[currentIndex];
 
-      // Save to Firestore
-      await db.collection("answers").add({champion:champion,answer:input||"(No answer)"});
+      results.set(champion, input);
+
+      if(input !== "(No answer)") {
+        answerCounts[input] = (answerCounts[input] || 0) + 1;
+      }
 
       currentIndex++;
       loadChampion();
     }
 
-    function skipChampion(){
-      const champion=champions[currentIndex];
-      if(!results.has(champion)) results.set(champion,"(Skipped)");
+    function skipChampion() {
+      const champion = champions[currentIndex];
+      results.set(champion, "(Skipped)");
       currentIndex++;
       loadChampion();
     }
 
-    function goBack(){
-      if(currentIndex>0){
+    function goBack() {
+      if (currentIndex > 0) {
         currentIndex--;
-        results.delete(champions[currentIndex]);
+        const champ = champions[currentIndex];
+        const removedAnswer = results.get(champ);
+        if(removedAnswer && removedAnswer !== "(No answer)") {
+          answerCounts[removedAnswer]--;
+          if(answerCounts[removedAnswer] === 0) delete answerCounts[removedAnswer];
+        }
+        results.delete(champ);
         loadChampion();
       }
     }
 
-    async function showSummary(){
-      document.getElementById('game').style.display='none';
-      const list=document.getElementById('summary-list');
-
-      // Get most common answers from Firestore
-      const snapshot=await db.collection("answers").get();
-      const allAnswers={};
-      snapshot.forEach(doc=>{
-        const data=doc.data();
-        if(data.answer && data.answer!=="(No answer)"){
-          if(!allAnswers[data.champion]) allAnswers[data.champion]=[];
-          allAnswers[data.champion].push(data.answer.toUpperCase());
+    function getMostCommonAnswer() {
+      let maxCount = 0, mostCommon = "(No common answer)";
+      for(const ans in answerCounts) {
+        if(answerCounts[ans] > maxCount) {
+          maxCount = answerCounts[ans];
+          mostCommon = ans;
         }
-      });
-
-      results.forEach((player,champion)=>{
-        const d=document.createElement('div'); d.classList.add('summary-entry');
-        const img=document.createElement('img'); img.src=getChampionImageUrl(champion);
-
-        // Most common answer
-        let common="";
-        if(allAnswers[champion]){
-          const freq={};
-          allAnswers[champion].forEach(a=>freq[a]=(freq[a]||0)+1);
-          common=Object.keys(freq).reduce((a,b)=>freq[a]>freq[b]?a:b,"");
-        }
-
-        const text=document.createElement('span');
-        text.innerText=`${champion}: Player: ${player.toUpperCase()} | Most common: ${common}`;
-        d.appendChild(img); d.appendChild(text); list.appendChild(d);
-      });
-
-      document.getElementById('summary').style.display='block';
+      }
+      return mostCommon;
     }
 
-    document.getElementById('player-name').addEventListener('keydown',function(e){
-      if(e.key==='Enter') submitAnswer();
+    function showSummary() {
+      document.getElementById('game').style.display = 'none';
+      const list = document.getElementById('summary-list');
+      results.forEach((playerAnswer, champion) => {
+        const d = document.createElement('div');
+        d.classList.add('summary-entry');
+        const img = document.createElement('img');
+        img.src = getChampionImageUrl(champion);
+
+        const mostCommon = getMostCommonAnswer();
+        const text = document.createElement('span');
+        text.innerText = `${champion}\nYour answer: ${playerAnswer}\nMost common: ${playerAnswer === "(No answer)" ? "(No common answer)" : mostCommon}`;
+
+        d.appendChild(img);
+        d.appendChild(text);
+        list.appendChild(d);
+      });
+      document.getElementById('summary').style.display = 'block';
+    }
+
+    document.getElementById('player-name').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') submitAnswer();
     });
 
     loadChampion();
