@@ -58,7 +58,6 @@
       border: 3px solid #C8AA6E;
       background-color: #1e1e1e;
       color: #F0E6D2;
-      text-transform: uppercase; /* Force uppercase in input */
     }
 
     button {
@@ -124,7 +123,6 @@
       border-radius: 8px;
       box-sizing: border-box;
       font-size: 28px;
-      flex-direction: column;
     }
 
     .summary-entry img {
@@ -205,9 +203,12 @@
 
     let currentIndex = 0;
     const results = new Map();
-    const answerCounts = {}; // For most common answer calculation
 
     function getChampionImageUrl(name) {
+      if (name === "xdd") {
+        return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
+      }
+
       const customImages = {
         Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
         Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
@@ -219,11 +220,23 @@
         Ambessa: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ambessa_0.jpg",
         Mel: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Mel_0.jpg",
         Smolder: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Smolder_0.jpg",
-        Yunara: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yunara_0.jpg",
-        xdd: "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp"
+        Yunara: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yunara_0.jpg"
       };
-      const specialCases = {ChoGath: "Chogath", KhaZix: "Khazix", RekSai: "RekSai", Velkoz: "Velkoz", KSante: "KSante", LeBlanc: "Leblanc", Wukong: "MonkeyKing"};
-      return customImages[name] || `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${specialCases[name] || name}_0.jpg`;
+
+      if (customImages[name]) return customImages[name];
+
+      const specialCases = {
+        ChoGath: "Chogath",
+        KhaZix: "Khazix",
+        RekSai: "RekSai",
+        Velkoz: "Velkoz",
+        KSante: "KSante",
+        LeBlanc: "Leblanc",
+        Wukong: "MonkeyKing"
+      };
+
+      const urlName = specialCases[name] || name;
+      return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
     }
 
     function loadChampion() {
@@ -234,22 +247,20 @@
     }
 
     function submitAnswer() {
-      const input = document.getElementById('player-name').value.trim().toUpperCase() || "(No answer)";
+      const input = document.getElementById('player-name').value.trim();
       const champion = champions[currentIndex];
-
-      results.set(champion, input);
-
-      if(input !== "(No answer)") {
-        answerCounts[input] = (answerCounts[input] || 0) + 1;
+      if (!results.has(champion)) {
+        results.set(champion, input || "(No answer)");
       }
-
       currentIndex++;
       loadChampion();
     }
 
     function skipChampion() {
       const champion = champions[currentIndex];
-      results.set(champion, "(Skipped)");
+      if (!results.has(champion)) {
+        results.set(champion, "(Skipped)");
+      }
       currentIndex++;
       loadChampion();
     }
@@ -257,41 +268,21 @@
     function goBack() {
       if (currentIndex > 0) {
         currentIndex--;
-        const champ = champions[currentIndex];
-        const removedAnswer = results.get(champ);
-        if(removedAnswer && removedAnswer !== "(No answer)") {
-          answerCounts[removedAnswer]--;
-          if(answerCounts[removedAnswer] === 0) delete answerCounts[removedAnswer];
-        }
-        results.delete(champ);
+        results.delete(champions[currentIndex]);
         loadChampion();
       }
-    }
-
-    function getMostCommonAnswer() {
-      let maxCount = 0, mostCommon = "(No common answer)";
-      for(const ans in answerCounts) {
-        if(answerCounts[ans] > maxCount) {
-          maxCount = answerCounts[ans];
-          mostCommon = ans;
-        }
-      }
-      return mostCommon;
     }
 
     function showSummary() {
       document.getElementById('game').style.display = 'none';
       const list = document.getElementById('summary-list');
-      results.forEach((playerAnswer, champion) => {
+      results.forEach((player, champion) => {
         const d = document.createElement('div');
         d.classList.add('summary-entry');
         const img = document.createElement('img');
         img.src = getChampionImageUrl(champion);
-
-        const mostCommon = getMostCommonAnswer();
         const text = document.createElement('span');
-        text.innerText = `${champion}\nYour answer: ${playerAnswer}\nMost common: ${playerAnswer === "(No answer)" ? "(No common answer)" : mostCommon}`;
-
+        text.innerText = `${champion}: ${player}`;
         d.appendChild(img);
         d.appendChild(text);
         list.appendChild(d);
@@ -299,8 +290,11 @@
       document.getElementById('summary').style.display = 'block';
     }
 
+    // Enable Enter key to act as submit when input is focused
     document.getElementById('player-name').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') submitAnswer();
+      if (e.key === 'Enter') {
+        submitAnswer();
+      }
     });
 
     loadChampion();
