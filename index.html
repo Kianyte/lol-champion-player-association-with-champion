@@ -1,29 +1,14 @@
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-
-<script>
-  // Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyCXO689ODXkJtGAUrBu9xiZyQjL58l-754",
-    authDomain: "champion-association-game.firebaseapp.com",
-    projectId: "champion-association-game",
-    storageBucket: "champion-association-game.firebasestorage.app",
-    messagingSenderId: "119189747163",
-    appId: "1:119189747163:web:206820499a464ac48fe3fe",
-    measurementId: "G-SJSSXJ0DEJ"
-  };
-
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Champion Association Game</title>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Beaufort+for+LOL&display=swap');
 
@@ -78,6 +63,7 @@
       border: 3px solid #C8AA6E;
       background-color: #1e1e1e;
       color: #F0E6D2;
+      text-transform: uppercase;
     }
 
     button {
@@ -142,7 +128,9 @@
       padding: 20px;
       border-radius: 8px;
       box-sizing: border-box;
-      font-size: 28px;
+      font-size: 20px;
+      text-align: left;
+      white-space: pre-line;
     }
 
     .summary-entry img {
@@ -200,176 +188,32 @@
     <div id="summary-list"></div>
   </div>
 
-<script>
-  const champions = [
-    "Aatrox", "Ahri", "Akali", "Akshan", "Alistar", "Amumu", "Ambessa", "Anivia", "Annie", "Aphelios",
-    "Ashe", "AurelionSol", "Azir", "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar",
-    "Caitlyn", "Camille", "Cassiopeia", "ChoGath", "Corki", "Darius", "Diana", "DrMundo", "Draven",
-    "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen",
-    "Gnar", "Gragas", "Graves", "Gwen", "Hecarim", "Heimerdinger", "Hwei", "Illaoi", "Irelia", "Ivern",
-    "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin",
-    "Katarina", "Kayle", "Kayn", "Kennen", "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc",
-    "LeeSin", "Leona", "Lillia", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai",
-    "MasterYi", "Mel", "Milio", "MissFortune", "Mordekaiser", "Morgana", "Naafiri", "Nami", "Nasus",
-    "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon",
-    "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "RekSai", "Rell", "Renata", "Renekton", "Rengar",
-    "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana",
-    "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Smolder", "Swain", "Sylas", "Syndra", "TahmKench",
-    "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate",
-    "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Velkoz", "Vex", "Vi", "Viego", "Viktor", "Vladimir",
-    "Volibear", "Warwick", "Wukong", "Xayah", "Xerath", "XinZhao", "Yasuo", "Yone", "Yorick", "Yuumi",
-    "Yunara", "Zac", "Zed", "Zeri", "Ziggs", "Zilean", "Zoe", "Zyra", "xdd"
-  ];
-
-  let currentIndex = 0;
-  const results = new Map();
-
-  function getChampionImageUrl(name) {
-    if (name === "xdd") {
-      return "https://i.postimg.cc/T39jVCWC/does-anyone-know-where-the-xdd-picture-originates-from-v0-2wttjntmyfhd1.webp";
-    }
-
-    const customImages = {
-      Kayle: "https://i.postimg.cc/PrpTJwNf/kayle-morgana-design-are-not-as-good-as-they-could-be-in-a-v0-p2p0zel9heka1.webp",
-      Morgana: "https://i.postimg.cc/FHzWNyKG/morg-splash.webp",
-      Xayah: "https://i.postimg.cc/MKmHqBLc/Xayah-Original-Centered.webp",
-      Rakan: "https://i.postimg.cc/Jhq5Xttt/Rakan.webp",
-      Akshan: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akshan_0.jpg",
-      Hwei: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Hwei_0.jpg",
-      Aurora: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aurora_0.jpg",
-      Ambessa: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ambessa_0.jpg",
-      Mel: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Mel_0.jpg",
-      Smolder: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Smolder_0.jpg",
-      Yunara: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yunara_0.jpg"
+  <script>
+    // --- Firebase Setup ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyCXO689ODXkJtGAUrBu9xiZyQjL58l-754",
+      authDomain: "champion-association-game.firebaseapp.com",
+      projectId: "champion-association-game",
+      storageBucket: "champion-association-game.firebasestorage.app",
+      messagingSenderId: "119189747163",
+      appId: "1:119189747163:web:206820499a464ac48fe3fe",
+      measurementId: "G-SJSSXJ0DEJ"
     };
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    if (customImages[name]) return customImages[name];
-
-    const specialCases = {
-      ChoGath: "Chogath",
-      KhaZix: "Khazix",
-      RekSai: "RekSai",
-      Velkoz: "Velkoz",
-      KSante: "KSante",
-      LeBlanc: "Leblanc",
-      Wukong: "MonkeyKing"
-    };
-
-    const urlName = specialCases[name] || name;
-    return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${urlName}_0.jpg`;
-  }
-
-  function loadChampion() {
-    if (currentIndex >= champions.length) return showSummary();
-    document.getElementById('champion-img').src = getChampionImageUrl(champions[currentIndex]);
-    const input = document.getElementById('player-name');
-    input.value = '';
-    input.focus();
-  }
-
-  function submitAnswer() {
-    const inputEl = document.getElementById('player-name');
-    const input = inputEl.value.trim().toUpperCase();
-    const champion = champions[currentIndex];
-    const answer = input || "(No answer)";
-
-    if (!results.has(champion)) {
-      results.set(champion, answer);
-    }
-
-    // Save to Firestore if answer isn’t skipped or empty
-    if (answer !== "(No answer)" && answer !== "(Skipped)") {
-      db.collection("champion_answers").add({
-        champion: champion,
-        playerAnswer: answer,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    }
-
-    currentIndex++;
-    loadChampion();
-  }
-
-  function skipChampion() {
-    const champion = champions[currentIndex];
-    if (!results.has(champion)) {
-      results.set(champion, "(Skipped)");
-    }
-    currentIndex++;
-    loadChampion();
-  }
-
-  function goBack() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      results.delete(champions[currentIndex]);
-      loadChampion();
-    }
-  }
-
-  async function showSummary() {
-    document.getElementById('game').style.display = 'none';
-    const list = document.getElementById('summary-list');
-
-    // Fetch all answers
-    const snapshot = await db.collection("champion_answers").get();
-    const counts = {};
-
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      if (!data.playerAnswer || data.playerAnswer === "(No answer)" || data.playerAnswer === "(Skipped)") return;
-      if (!counts[data.champion]) counts[data.champion] = {};
-      counts[data.champion][data.playerAnswer] = (counts[data.champion][data.playerAnswer] || 0) + 1;
-    });
-
-    const globalAnswers = {};
-    for (const champ in counts) {
-      let maxCount = 0, topAnswer = "";
-      for (const answer in counts[champ]) {
-        if (counts[champ][answer] > maxCount) {
-          maxCount = counts[champ][answer];
-          topAnswer = answer;
-        }
-      }
-      globalAnswers[champ] = topAnswer;
-    }
-
-    results.forEach((player, champion) => {
-      const d = document.createElement('div');
-      d.classList.add('summary-entry');
-
-      const img = document.createElement('img');
-      img.src = getChampionImageUrl(champion);
-
-      const text = document.createElement('span');
-      const common = globalAnswers[champion] || "—";
-      text.innerHTML = `
-        <strong>${champion}</strong><br>
-        Your answer: ${player}<br>
-        Most common: ${common}
-      `;
-
-      d.appendChild(img);
-      d.appendChild(text);
-      list.appendChild(d);
-    });
-
-    document.getElementById('summary').style.display = 'block';
-  }
-
-  // Enter key = submit
-  const input = document.getElementById('player-name');
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') submitAnswer();
-  });
-
-  // Force caps on input display
-  input.addEventListener('input', e => {
-    e.target.value = e.target.value.toUpperCase();
-  });
-
-  loadChampion();
-</script>
-
-</body>
-</html>
+    // --- Game Data ---
+    const champions = [
+      "Aatrox", "Ahri", "Akali", "Akshan", "Alistar", "Amumu", "Ambessa", "Anivia", "Annie", "Aphelios",
+      "Ashe", "AurelionSol", "Azir", "Bard", "Belveth", "Blitzcrank", "Brand", "Braum", "Briar",
+      "Caitlyn", "Camille", "Cassiopeia", "ChoGath", "Corki", "Darius", "Diana", "DrMundo", "Draven",
+      "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen",
+      "Gnar", "Gragas", "Graves", "Gwen", "Hecarim", "Heimerdinger", "Hwei", "Illaoi", "Irelia", "Ivern",
+      "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin",
+      "Katarina", "Kayle", "Kayn", "Kennen", "KhaZix", "Kindred", "Kled", "KogMaw", "KSante", "LeBlanc",
+      "LeeSin", "Leona", "Lillia", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai",
+      "MasterYi", "Mel", "Milio", "MissFortune", "Mordekaiser", "Morgana", "Naafiri", "Nami", "Nasus",
+      "Nautilus", "Neeko", "Nidalee", "Nilah", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon",
+      "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "RekSai", "Rell", "Renata", "Renekton", "Rengar",
+      "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana",
+      "Singed", "Sion", "
